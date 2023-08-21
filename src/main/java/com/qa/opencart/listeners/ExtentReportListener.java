@@ -54,19 +54,16 @@ public class ExtentReportListener implements ITestListener {
 		return extentReports;
 	}
 	
-	@Override
 	public synchronized void onStart(ITestContext context) {
 		System.out.println("Test Suite started!");
 	}
 	
-	@Override
 	public synchronized void onFinish(ITestContext context) {
 		System.out.println("Test Suite is ending!");
 		extent.flush();
 		test.remove();
 	}
 	
-	@Override
 	public synchronized void onTestStart(ITestResult result) {
 		String methodName = result.getMethod().getMethodName();
 		String qualifiedName = result.getMethod().getQualifiedName();
