@@ -69,7 +69,7 @@ public class AccountsPage {
 			return new SearchResultPage(driver);
 		}
 		else {
-			System.out.println("Search is not present on the page.");
+			System.out.println("Search is not available on the page.");
 			return null;
 		}
 		
