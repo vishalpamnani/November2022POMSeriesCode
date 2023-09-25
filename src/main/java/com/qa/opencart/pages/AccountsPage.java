@@ -31,13 +31,13 @@ public class AccountsPage {
 	
 	public String getAccountsPageTitle() {
 		String title = eleUtil.waitForTitleIsAndFetch(OpenCartConstants.DEFAULT_SHORT_TIMEOUT, OpenCartConstants.ACCOUNTS_PAGE_TITLE);
-		System.out.println("Accounts Page Title is: "+title);
+		System.out.println("Accounts Page Title is: " +title);
 		return title;
 	}
 	
 	public String getAccountsPageURL() {
 		String url = eleUtil.waitForURLContainsAndFetch(OpenCartConstants.DEFAULT_SHORT_TIMEOUT, OpenCartConstants.ACCOUNTS_PAGE_URL_FRACTION_VALUE);
-		System.out.println("Accounts Page URL is: "+url);
+		System.out.println("Accounts Page URL is: " +url);
 		return url;
 	}
 	
