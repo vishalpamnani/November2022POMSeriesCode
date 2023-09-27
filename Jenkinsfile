@@ -1,56 +1,108 @@
-pipeline{
-    
+pipeline 
+{
     agent any
     
-    stages{
-        
-        stage("Build"){
-            steps{
-                echo("build the project")
+    tools{
+    	maven 'maven'
+        }
+
+    stages 
+    {
+        stage('Build') 
+        {
+            steps
+            {
+                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+            post 
+            {
+                success
+                {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
             }
         }
         
-        stage("Deploy to dev"){
+        
+        
+        stage("Deploy to QA"){
             steps{
-                echo("deploying to dev env")
+                echo("deploy to qa")
             }
         }
         
-        stage("Deploy to qa"){
-            steps{
-                echo("deploying to the qa env")
+        
+                
+        stage('Regression Automation Test') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/vishalpamnani/November2022POMSeriesCode.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml"
+                    
+                }
+            }
+        }
+                
+     
+        stage('Publish Allure Reports') {
+           steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: '/allure-results']]
+                    ])
+                }
             }
         }
         
-        stage("Run regression auomation test cases"){
+        
+        stage('Publish Extent Report'){
             steps{
-                echo("Run regression automation test cases")
+                     publishHTML([allowMissing: false,
+                                  alwaysLinkToLastBuild: false, 
+                                  keepAll: true, 
+                                  reportDir: 'reports', 
+                                  reportFiles: 'TestExecutionReport.html', 
+                                  reportName: 'HTML Regression Extent Report', 
+                                  reportTitles: ''])
             }
         }
         
-        stage("Deploy to stage"){
+        stage("Deploy to Stage"){
             steps{
-                echo("deploying to the stage env")
+                echo("deploy to Stage")
             }
         }
         
-        stage("Run sanity automation test cases"){
-            steps{
-                echo("Run sanity automation test cases")
+        stage('Sanity Automation Test') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/vishalpamnani/November2022POMSeriesCode.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_sanity.xml"
+                    
+                }
             }
         }
         
-        stage("Deploy to prod"){
+        
+        
+        stage('Publish sanity Extent Report'){
             steps{
-                echo("deploying to the prod env")
+                     publishHTML([allowMissing: false,
+                                  alwaysLinkToLastBuild: false, 
+                                  keepAll: true, 
+                                  reportDir: 'reports', 
+                                  reportFiles: 'TestExecutionReport.html', 
+                                  reportName: 'HTML Sanity Extent Report', 
+                                  reportTitles: ''])
             }
         }
+        
         
     }
-    
-    
-    
-    
-    
-    
 }

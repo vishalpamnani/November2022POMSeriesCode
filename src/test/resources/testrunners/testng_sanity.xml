@@ -19,25 +19,6 @@
 		</classes>
 	</test>
 
- 	<test name="Accounts Page Test">
-		
-		<classes>
-			<class name="com.qa.opencart.tests.AccountsPageTest" />
-		</classes>
-	</test> 
-	
- 	<test name="Product Detail Page Test">
-		
-		<classes>
-			<class name="com.qa.opencart.tests.ProductDetailPageTest" />
-		</classes>
-	</test>
-	
-	<test name="Registration Page Test">
-		
-		<classes>
-			<class name="com.qa.opencart.tests.RegistrationPageTest" />
-		</classes> 
-	</test> 
+
 
 </suite>			
