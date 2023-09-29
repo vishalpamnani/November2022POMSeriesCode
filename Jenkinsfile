@@ -32,8 +32,6 @@ pipeline
                 echo("deploy to qa")
             }
         }
-        
-        
                 
         stage('Regression Automation Test') {
             steps {
@@ -88,8 +86,6 @@ pipeline
                 }
             }
         }
-        
-        
         
         stage('Publish sanity Extent Report'){
             steps{
