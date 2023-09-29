@@ -37,6 +37,7 @@ pipeline
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/vishalpamnani/November2022POMSeriesCode.git'
+                    echo(pwd())
                     sh "mvn clean test -X -e -Dsurefire.suiteXmlFiles=src/test/resources/testrunners/testng_regression.xml"
                     
                 }
