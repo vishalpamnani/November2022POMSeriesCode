@@ -8,7 +8,6 @@ pipeline
 
     stages 
     {
-      
         
         stage("Build")
         {
@@ -18,8 +17,6 @@ pipeline
     		}
 
 		}
-        
-        
         
         stage("Deploy to QA"){
             steps{
