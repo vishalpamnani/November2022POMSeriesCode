@@ -13,7 +13,7 @@ pipeline
         {
     
     		steps{
-    		    echo("build project")
+    		    echo("build the project")
     		}
 
 		}
