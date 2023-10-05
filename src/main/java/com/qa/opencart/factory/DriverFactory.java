@@ -15,6 +15,8 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import com.qa.opencart.exception.FrameworkException;
+
 public class DriverFactory {
 
 	public WebDriver driver;
@@ -53,17 +55,18 @@ public class DriverFactory {
 		} 
 		
 		else if (browserName.equalsIgnoreCase("safari")) {
-			driver = new SafariDriver();
+			//driver = new SafariDriver();
 			tlDriver.set(new SafariDriver());
 		} 
 		
 		else if (browserName.equalsIgnoreCase("edge")) {
-			driver = new EdgeDriver(optionsManager.getEdgeOptions());
+			//driver = new EdgeDriver(optionsManager.getEdgeOptions());
 			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
 		} 
 		
 		else {
 			System.out.println("Please pass the correct browser name.... " + browserName);
+			throw new FrameworkException("NO BROWSER FOUND EXCEPTION...");
 		}
 
 		getDriver().manage().deleteAllCookies();
